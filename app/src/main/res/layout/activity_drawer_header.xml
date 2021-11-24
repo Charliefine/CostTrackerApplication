@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="4dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+<!--
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_theme_changer"
+        style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="300dp"
+        app:icon="@drawable/ic_round_brush_24" />
+-->
+
+    <TextView
+        android:id="@+id/application_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="bottom"
+        android:text="CostTracker"
+        android:textSize="28dp" />
+
+</LinearLayout>

@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.costtrackerapplication.DrawerActivity
 import com.example.costtrackerapplication.MainActivity
 import com.example.costtrackerapplication.R
-import com.example.costtrackerapplication.databinding.FragmentLoginBinding
+import com.example.costtrackerapplication.databinding.LoginFragmentBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -23,7 +23,7 @@ import com.google.android.gms.common.api.ApiException
 class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: LoginFragmentBinding? = null
     private val binding get() = _binding!!
 
     //GoogleAuth
@@ -35,7 +35,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //Binding
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = LoginFragmentBinding.inflate(inflater, container, false)
 
         binding.btnToLogin.setOnClickListener {
             val loginEmailInput: String? = binding.loginEmailInput.text.toString()
@@ -101,17 +101,7 @@ class LoginFragment : Fragment() {
 
     //Log in if logged already
     override fun onStart() {
-        loginViewModel.isLogged().observe(viewLifecycleOwner, Observer {
-/*
-            if(it == true){
-                val intent = Intent(activity, DrawerActivity::class.java)
-                intent.flags =
-                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                MainActivity().finish()
-            }
-            */
-        })
+        checkLogIn()
         super.onStart()
     }
 
@@ -141,6 +131,18 @@ class LoginFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun checkLogIn(){
+        loginViewModel.isLogged().observe(viewLifecycleOwner, Observer {
+            if(it == true){
+                val intent = Intent(activity, DrawerActivity::class.java)
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                MainActivity().finish()
+            }
+        })
     }
 
     //Google

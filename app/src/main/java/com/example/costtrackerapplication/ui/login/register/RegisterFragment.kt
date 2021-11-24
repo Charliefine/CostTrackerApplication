@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.costtrackerapplication.MainActivity
 import com.example.costtrackerapplication.R
-import com.example.costtrackerapplication.databinding.FragmentRegisterBinding
+import com.example.costtrackerapplication.databinding.RegisterFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -23,7 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 class RegisterFragment : Fragment() {
 
     private lateinit var registerViewmodel: RegisterViewModel
-    private var _binding: FragmentRegisterBinding? = null
+    private var _binding: RegisterFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -31,7 +31,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //Binding
-        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        _binding = RegisterFragmentBinding.inflate(inflater, container, false)
 
         //Viewmodel
         registerViewmodel =

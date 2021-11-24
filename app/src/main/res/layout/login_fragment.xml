@@ -123,7 +123,7 @@
         android:id="@+id/text_sign_with_google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Or sign in with"
+        android:text="Or sign in with Google"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/btn_login_google"
         app:layout_constraintEnd_toEndOf="parent"
