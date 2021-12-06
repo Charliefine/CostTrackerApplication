@@ -2,4 +2,5 @@
 <resources>
     <color name="green">#47d147</color>
     <color name="red">#ff1a1a</color>
+    <color name="transparent">#00000000</color>
 </resources>

@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CostTrackerApplication">
+        <activity android:name=".activities.DetailsActivity"
+            android:theme="@style/Theme.CostTrackerApplication.NoActionBar" />
+        <activity
+            android:name=".activities.ExpenseActivity"
+            android:theme="@style/Theme.CostTrackerApplication.NoActionBar" />
         <activity
             android:name=".AddActivity"
             android:theme="@style/Theme.CostTrackerApplication.NoActionBar" />

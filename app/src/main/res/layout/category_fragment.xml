@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/add"
+    android:id="@+id/add_category_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="32dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    app:behavior_hideable="true"
+    android:layout_marginTop="30dp"
+    app:behavior_peekHeight="1000dp"
     tools:context=".ui.login.category.CategoryFragment">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_to_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/category"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.621" />
+    <ListView
+        android:id="@+id/category_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_view_category_list"
+        android:divider="@color/black"
+        android:dividerHeight="1dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view_category_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:queryHint="Search for category"
+        android:layout_alignParentTop="true"
+        android:layoutDirection="rtl"
+        android:animateLayoutChanges="true" />
+
+</RelativeLayout>

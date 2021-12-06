@@ -2,6 +2,7 @@ package com.example.costtrackerapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
@@ -73,16 +74,26 @@ class DrawerActivity : AppCompatActivity() {
             }
         }
 
-        binding.appBarDrawer.floatingBtn.setOnClickListener {
-            val intent = Intent(this, AddActivity::class.java)
-            startActivity(intent)
+        binding.appBarDrawer.toolbar.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.menu_drawer_bar_add -> {
+                    val intent = Intent(this, AddActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
         }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_drawer)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_drawer_bar, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun logOut(){

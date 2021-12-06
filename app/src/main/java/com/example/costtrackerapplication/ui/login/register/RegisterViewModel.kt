@@ -6,8 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.costtrackerapplication.model.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -25,13 +28,13 @@ class RegisterViewModel : ViewModel()  {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val newUserUid: String = task.result?.user?.uid.toString()
+                    val profileUpdates = userProfileChangeRequest {
+                        displayName = registerUsernameInput
+                    }
                     Log.i("Lifecycle", "Successfully created account")
                     result.postValue(true)
-                    /**
-                     * TODO
-                     * Set DisplayName to new users
-                    setUsername(newUserUid, registerUsernameInput)
-                    */
+
+                    task.result?.user?.updateProfile(profileUpdates)
                     addToDatabase(newUserUid, registerEmailInput, registerUsernameInput)
                 } else {
                     Log.i("Lifecycle", "Something went wrong during creating account")
@@ -39,10 +42,6 @@ class RegisterViewModel : ViewModel()  {
                 }
             }
         return result
-    }
-
-    private fun setUsername(newUserUid: String?, registerUsernameInput: String?) {
-
     }
 
     private fun addToDatabase(
@@ -54,7 +53,7 @@ class RegisterViewModel : ViewModel()  {
         val currentDate: String = setDate()
         database = FirebaseDatabase.getInstance().getReference("Users")
 
-        val newUser = User(newUserUid, registerUsernameInput, registerEmailInput, currentDate)
+        val newUser = User(newUserUid, registerUsernameInput, registerEmailInput, currentDate, "5000")
 
         database.child(newUserUid!!).child("UserInfo").setValue(newUser).addOnSuccessListener {
             Log.i("Lifecycle", "Successfully added to database")

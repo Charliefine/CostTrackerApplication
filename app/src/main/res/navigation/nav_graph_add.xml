@@ -5,7 +5,7 @@
     android:id="@+id/nav_graph_add"
     app:startDestination="@id/addFragment">
 
-    <fragment
+    <dialog
         android:id="@+id/categoryFragment"
         android:name="com.example.costtrackerapplication.ui.login.category.CategoryFragment"
         android:label="category_fragment"
@@ -13,7 +13,7 @@
         <action
             android:id="@+id/action_categoryFragment_to_addFragment"
             app:destination="@id/addFragment" />
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.costtrackerapplication.ui.login.add.AddFragment"

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.home.HomeMainFragment"
+    android:layout_margin="32dp">
+
+    <TextView
+        android:id="@+id/home_main_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/home_main_summary_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardElevation="2dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_main_title"
+        android:clickable="true"
+        android:checkable="true"
+        android:focusable="true"
+        app:barrierMargin="@dimen/fab_margin">
+<!--
+        <FrameLayout
+            android:id="@+id/home_main_summary_framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"/>
+-->
+
+        <TextView
+            android:id="@+id/home_main_summary_cardview_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You have spent this month:"/>
+
+        <TextView
+            android:id="@+id/home_main_summary_cardview_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/home_main_summary_cardview_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"/>
+    </com.google.android.material.card.MaterialCardView>
+<!--
+
+    <FrameLayout
+        android:id="@+id/home_main_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="186dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_main_summary_cardview2"
+        app:layout_constraintVertical_bias="1.0" />
+-->
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/home_main_summary_cardview2"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginTop="60dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_main_summary_cardview">
+
+            <com.app.progresviews.ProgressLine
+                android:id="@+id/progress_line"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                app:definition="spent money"
+                app:lineBarWidth="16dp"
+                app:valuePercentage="0"
+                app:valueDefTextSize="30sp"
+                app:lineDefTextSize="16dp"
+                app:lineProgressColor="#35aeff"
+                app:underLineColor="@android:color/darker_gray"
+                style="@style/Theme.CostTrackerApplication"
+                />
+
+    </com.google.android.material.card.MaterialCardView>
+    <!--
+        <ScrollView
+            android:id="@+id/home_main_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_main_summary_cardview"
+            app:layout_constraintVertical_bias="0.953">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/home_main_summary_cardview2"
+                android:layout_width="match_parent"
+                android:layout_height="470dp"
+                android:layout_marginTop="80dp"
+                android:background="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" >
+            </com.google.android.material.card.MaterialCardView>
+
+        </ScrollView>
+    -->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_to_expense_home_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add new expense"
+        app:icon="@drawable/ic_round_post_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_main_summary_cardview2"
+        app:layout_constraintVertical_bias="0.17" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
 package com.example.costtrackerapplication.model
 
-data class User(var uid: String? = null, var displayName: String? = null, var email: String? = null, var createDate: String? = null) {
+data class User(var uid: String? = null, var displayName: String? = null, var email: String? = null, var createDate: String? = null, var limit: String? = null) {
 }

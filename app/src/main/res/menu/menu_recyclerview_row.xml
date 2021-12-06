@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_rv_row_view"
+        android:title="View"
+        android:icon="@drawable/ic_round_remove_red_eye_24"/>
+    <item
+        android:id="@+id/menu_rv_row_edit"
+        android:title="Edit"
+        android:icon="@drawable/ic_round_edit_24"/>
+    <item
+        android:id="@+id/menu_rv_row_delete"
+        android:title="Delete"
+        android:icon="@drawable/ic_outline_delete_24"/>
+</menu>

@@ -12,11 +12,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!--        Main background color-->
+        <item name="android:windowBackground">#0e1a27</item>
+        <item name="android:windowActionBarOverlay">@null</item>
     </style>
     <style name="Theme.CostTrackerApplication.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowActionBarOverlay">true</item>
     </style>
     <style name="Theme.CostTrackerApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

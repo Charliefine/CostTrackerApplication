@@ -1,5 +1,7 @@
 package com.example.costtrackerapplication
 
+import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import org.junit.Test
 
 import org.junit.Assert.*

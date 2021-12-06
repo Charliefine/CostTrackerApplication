@@ -10,7 +10,8 @@
         android:id="@+id/registerAppbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="?android:windowBackground"
+        app:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -22,7 +23,6 @@
             android:id="@+id/toolbar_register_fragment"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
             app:title="@string/sign_up"
             app:navigationIcon="@drawable/ic_round_arrow_back_24" />
 

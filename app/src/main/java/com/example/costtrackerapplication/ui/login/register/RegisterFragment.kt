@@ -17,9 +17,6 @@ import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.RegisterFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class RegisterFragment : Fragment() {
 
     private lateinit var registerViewmodel: RegisterViewModel
@@ -57,10 +54,12 @@ class RegisterFragment : Fragment() {
                 }
                 else -> {
                     //if(TextUtils.isEmpty(registerPasswordInput?.trim{it <= ' '}) != TextUtils.isEmpty(registerRePasswordInput?.trim{it <= ' '})){
+                    /*
                     if(checkIfEqual(registerPasswordInput, registerRePasswordInput)){
                         binding.registerPasswordLayout.error = "Passwords are not equal"
                         binding.registerRePasswordLayout.error = "Passwords are not equal"
                     }else{
+                    */
                         binding.registerPasswordLayout.error = null
                         binding.registerRePasswordLayout.error = null
 
@@ -77,7 +76,7 @@ class RegisterFragment : Fragment() {
                                 binding.registerTitle.text = "EROROROOR"
                             }
                         })
-                    }
+                    //}
                 }
             }
         }
