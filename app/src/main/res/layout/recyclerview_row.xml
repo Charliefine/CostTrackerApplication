@@ -10,7 +10,7 @@
     android:checkable="true"
     android:foreground="?android:attr/selectableItemBackgroundBorderless"
     android:focusable ="true"
-    app:cardElevation="4dp"
+    app:cardElevation="5dp"
     app:cardUseCompatPadding="true">
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_gravity="center|left"
         android:layout_marginLeft="8dp"
         android:fontFamily="@font/poppins_light"
-        android:textSize="20sp" />
+        android:textSize="17sp" />
 
     <TextView
         android:id="@+id/recyclerview_date"
@@ -48,7 +48,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginRight="18dp"
         android:layout_marginBottom="8dp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/poppins_bold"
         android:textAlignment="textEnd"
         android:textSize="24sp"
         tools:ignore="RtlCompat" />
@@ -58,7 +58,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="43dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginRight="8dp"
         android:layoutDirection="rtl"
         app:icon="@drawable/ic_round_more_vert_24" />

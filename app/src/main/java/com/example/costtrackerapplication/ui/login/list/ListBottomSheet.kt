@@ -2,19 +2,16 @@ package com.example.costtrackerapplication.ui.login.list
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
-import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.ListBottomSheetFragmentBinding
-import com.example.costtrackerapplication.databinding.ListFragmentBinding
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.ArrayList
+
+//TODO UNUSED
 
 class ListBottomSheet : BottomSheetDialogFragment() {
 
@@ -22,45 +19,63 @@ class ListBottomSheet : BottomSheetDialogFragment() {
     private var _binding: ListBottomSheetFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var filterList: ArrayList<String>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         //Binding
         _binding = ListBottomSheetFragmentBinding.inflate(inflater, container, false)
-
-        //ViewModel
-        listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-
         Log.i("Lifecycle", "XD")
-
-/*
-        binding.btnBottomSheetClose.setOnClickListener {
-            Log.i("Lifecycle", "Closed")
-            this.dialog?.dismiss()
-        }
-*/
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+/*
+        //ViewModel
+        listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
 
+        listViewModel.checkFilters.observe(viewLifecycleOwner, {
+            Log.i("LifecycleBottomSheet", it.toString())
+        })
+*/
+
+        filterList.add("XD")
+        listViewModel.setFilters(filterList)
+/*
         var filterList: ArrayList<String>? = ArrayList()
         requireActivity().supportFragmentManager.setFragmentResultListener("filterListKey2", this ) { _, bundle ->
             val resultReceived = bundle.getStringArrayList("bundleList2")
             filterList = resultReceived
             Log.i("Lifecycle3", filterList.toString())
         }
+*/
 
+/*
         binding.btnBottomSheetClose.setOnClickListener {
 
             //Filter list
             requireActivity().supportFragmentManager.setFragmentResult("filterListKey1", bundleOf("bundleList1" to filterList))
             Log.i("Lifecycle4", filterList.toString())
-        }
 
+            val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.Theme_Design_BottomSheetDialog)
+            bottomSheetDialog.dismissWithAnimation
+        }
+*/
+
+    }
+
+    override fun show(manager: FragmentManager, tag: String?) {
+        super.show(manager, tag)
+        Log.i("LifecycleBottomSheet", "Created")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        listViewModel.setFilters(filterList)
     }
 
 }

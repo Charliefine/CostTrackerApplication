@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="10dp"
+    android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/expense_summary_listview_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/category"
+                android:gravity="left"/>
+
+            <TextView
+                android:id="@+id/expense_summary_listview_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/amount"
+                android:gravity="left"
+                android:layout_below="@+id/expense_summary_listview_category"/>
+
+</RelativeLayout>

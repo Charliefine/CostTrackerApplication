@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CostTrackerApplication</string>
+    <string name="action_settings">Ustawienia</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="email">Email</string>
+    <string name="password">Hasło</string>
+    <string name="sign_in">Zaloguj się</string>
+    <string name="sign_up">Zarejestruj się</string>
+    <string name="username">Username</string>
+    <string name="re_enter_password">Re-enter password</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="about_application">O aplikacji</string>
+    <string name="add_expense">Dodaj wydatek</string>
+    <string name="log_out">Wyloguj się</string>
+    <string name="settings">Ustawienia</string>
+    <string name="category">Kategoria</string>
+    <string name="title">Tytuł</string>
+    <string name="amount">Kwota</string>
+    <string name="description">Opis</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add">Dodaj</string>
+    <string name="delete">Usuń</string>
+    <string name="edit">Edytuj</string>
+    <string name="list">Lista</string>
+    <string name="home">Strona główna</string>
+    <string name="profile">Profil</string>
+    <string name="dashboard">Panel</string>
+    <string name="view">View</string>
+    <string name="theme">Theme</string>
+    <string name="language">Language</string>
+    <string name="add_a_new_expense">Add a new expense</string>
+    <string name="save_changes">Save changes</string>
+    <string name="edit_expense">Edit expense</string>
+    <string name="filters">Filters</string>
+    <string name="search_for_expense">Search for expense</string>
+    <string name="clear">Clear</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="theme_entries">
+        <item>Default theme</item>
+        <item>Light theme</item>
+        <item>Dark theme</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>default_theme</item>
+        <item>light_theme</item>
+        <item>dark_theme</item>
+    </string-array>
+
+    <string-array name="language_entries">
+        <item>English</item>
+        <item>Polski</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>english_lang</item>
+        <item>polish_lang</item>
+    </string-array>
+</resources>

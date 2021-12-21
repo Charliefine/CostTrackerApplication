@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -15,12 +16,14 @@ import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.ActivityDetailsBinding
 import com.example.costtrackerapplication.model.FirebaseDatabaseRepository
 import com.example.costtrackerapplication.ui.login.details.DetailsShowFragment
+import com.example.costtrackerapplication.ui.login.details.DetailsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.*
 
 
 class DetailsActivity : AppCompatActivity() {
 
+    private val viewModel: DetailsViewModel by viewModels()
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityDetailsBinding
 
@@ -32,12 +35,6 @@ class DetailsActivity : AppCompatActivity() {
         //Binding
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-/*
-        //Navigation
-        val navController = findNavController(R.id.nav_host_fragment_content_details)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-*/
 
         //Receive item ID
         val bundleFromAdapter: Bundle? = intent.extras
@@ -61,9 +58,6 @@ class DetailsActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        //Send item ID to fragment
-        DetailsShowFragment().onFragmentInteraction(itemID)
-
         binding.detailsToolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_details_bar_delete -> {
@@ -82,7 +76,7 @@ class DetailsActivity : AppCompatActivity() {
                         .show()
                 }
                 R.id.menu_details_bar_edit -> {
-                    navController.navigate(R.id.action_detailsShowFragment_to_detailsEditFragment)
+                    navController.navigate(R.id.action_detailsShowFragment_to_detailsEditFragment, b)
                 }
             }
             true
@@ -105,6 +99,7 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_details_bar, menu)
+        menu?.findItem(R.id.menu_details_bar_save)?.isVisible = false
 
         return super.onCreateOptionsMenu(menu)
     }

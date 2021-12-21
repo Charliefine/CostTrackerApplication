@@ -32,8 +32,8 @@
         android:id="@+id/recovery_passwd_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
-        android:fontFamily="@font/roboto_bold"
+        android:layout_marginTop="152dp"
+        android:fontFamily="@font/poppins_bold"
         android:text="Reset password"
         android:textAlignment="center"
         android:textAppearance="?android:textAppearanceLarge"
@@ -48,12 +48,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginRight="32dp"
-        android:fontFamily="@font/roboto_thin"
+        android:fontFamily="@font/poppins_regular"
         android:text="In case you have forgotten password, please enter valid email connected to your account. We will send link at your email"
         android:textAlignment="center"
-        android:textSize="18dp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recovery_passwd_title" />
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.875"
         app:startIconDrawable="@drawable/ic_round_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -94,7 +94,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/recovery_passwd_subtitle"
-        app:layout_constraintVertical_bias="0.864" />
+        app:layout_constraintVertical_bias="0.873" />
 
     <TextView
         android:id="@+id/recovery_passwd_is_sent"
@@ -104,8 +104,8 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="32dp"
         android:textAlignment="center"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textSize="18dp"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -5,16 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.ExpenseSummaryFragmentBinding
-import com.github.mikephil.charting.charts.HorizontalBarChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-
-
-
+import com.example.costtrackerapplication.model.CategorySummaryAdapter
 
 
 class ExpenseSummaryFragment : Fragment() {
@@ -23,15 +19,16 @@ class ExpenseSummaryFragment : Fragment() {
     private var _binding: ExpenseSummaryFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private var categoriesKeys: ArrayList<String> = arrayListOf()
+    private var categoriesValues: ArrayList<String> = arrayListOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         //Binding
         _binding = ExpenseSummaryFragmentBinding.inflate(inflater, container, false)
-
-        //ViewModel
-        expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
 
         return binding.root
     }
@@ -39,34 +36,49 @@ class ExpenseSummaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val chart = view.findViewById(R.id.categories_chart) as HorizontalBarChart
-        val data = BarData(getDataSet())
-        chart.data = data
-        chart.animateXY(2000, 2000)
-        chart.setDrawValueAboveBar(true);
-        chart.invalidate()
+        //ViewModel
+        expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
 
-        chart.xAxis.setDrawGridLines(false);
-        chart.axisLeft.setDrawGridLines(false);
-    }
-    private fun getDataSet(): BarDataSet? {
-        val entries: ArrayList<BarEntry> = ArrayList()
-        entries.add(BarEntry(4f, 0f))
-        entries.add(BarEntry(8f, 1f))
-        entries.add(BarEntry(6f, 2f))
-        entries.add(BarEntry(12f, 3f))
-        entries.add(BarEntry(18f, 4f))
-        entries.add(BarEntry(9f, 5f))
-        return BarDataSet(entries, "hi")
-    }
-    private fun getXAxisValues(): ArrayList<String>? {
-        val labels: ArrayList<String> = ArrayList()
-        labels.add("January")
-        labels.add("February")
-        labels.add("March")
-        labels.add("April")
-        labels.add("May")
-        labels.add("June")
-        return labels
+        expenseViewModel.summaryExpense.observe(viewLifecycleOwner, {
+            binding.expenseSummaryAmount.text = it
+        })
+
+        //Create list
+        val fragmentManager: FragmentManager? = activity?.supportFragmentManager
+        val fragmentTransaction: FragmentTransaction? = fragmentManager?.beginTransaction()
+        val transactionAnimation = fragmentTransaction?.setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim, R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
+        transactionAnimation?.replace(R.id.expense_summary_frame_layout, ExpenseListFragment())?.commit()
+
+        expenseViewModel.categoriesExpense.observe(viewLifecycleOwner, { it ->
+            categoriesKeys.clear()
+            categoriesValues.clear()
+            it.forEach {
+                var categoryName = it.key
+                categoryName = categoryName.replace("[", "").replace("]", "")
+                categoriesKeys.add(categoryName)
+                categoriesValues.add(it.value.toString())
+            }
+            val listAdapter = CategorySummaryAdapter(requireActivity(), categoriesKeys, categoriesValues)
+            binding.expenseSummaryListview.adapter = listAdapter
+
+            binding.expenseSummaryListview.setOnItemClickListener { parent, view, position, id ->
+
+                expenseViewModel.setCategory(parent.adapter.getItem(position).toString())
+
+                //Create list
+                val fragmentTransaction: FragmentTransaction? = fragmentManager?.beginTransaction()
+                val transactionAnimation = fragmentTransaction?.setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim, R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
+                transactionAnimation?.replace(R.id.expense_summary_frame_layout, ExpenseListFragment())?.commit()
+            }
+        })
+
+        binding.expenseSummaryClearFilters.setOnClickListener {
+            expenseViewModel.setCategory("")
+
+            //Create list
+            val fragmentTransaction: FragmentTransaction? = fragmentManager?.beginTransaction()
+            val transactionAnimation = fragmentTransaction?.setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim, R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
+            transactionAnimation?.replace(R.id.expense_summary_frame_layout, ExpenseListFragment())?.commit()
+        }
     }
 }

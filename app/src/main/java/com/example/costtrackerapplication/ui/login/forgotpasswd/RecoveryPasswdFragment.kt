@@ -26,12 +26,13 @@ class RecoveryPasswdFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
         //Binding
         _binding = RecoveryPasswdFragmentBinding.inflate(inflater, container, false)
 
         binding.btnToRecoverPasswd.setOnClickListener {
-            val recoveryPasswdEmailInput: String? = binding.recoveryPasswdEmailInput.text.toString().trim{it <= ' '}
+            val recoveryPasswdEmailInput: String = binding.recoveryPasswdEmailInput.text.toString().trim{it <= ' '}
             when{
                 TextUtils.isEmpty(recoveryPasswdEmailInput) -> {
                     binding.recoveryPasswdEmailLayout.error = "Email is empty"
@@ -68,7 +69,5 @@ class RecoveryPasswdFragment : Fragment() {
         actionBar?.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_recoveryPasswd_to_loginFragment2)
         }
-
     }
-
 }

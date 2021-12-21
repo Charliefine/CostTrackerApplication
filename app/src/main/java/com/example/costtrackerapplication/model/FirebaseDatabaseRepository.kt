@@ -1,10 +1,11 @@
 package com.example.costtrackerapplication.model
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
 
 class FirebaseDatabaseRepository {
@@ -13,8 +14,10 @@ class FirebaseDatabaseRepository {
     private val databaseReferenceUid =
         FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Items")
 
+
     val itemArrayList = arrayListOf<Item>()
-    var fetchedLimit: String = ""
+    private lateinit var fetchedLimit: String
+    private var registerDate: String = ""
     private lateinit var item: Item
 
     fun fetchItems(_newsFeedLiveData: MutableLiveData<ArrayList<Item>>) {
@@ -49,8 +52,9 @@ class FirebaseDatabaseRepository {
     }
 
     fun addLimit(uidNew: String) {
-        val newLimit = Limit("2500")
-        FirebaseDatabase.getInstance().getReference("Users").child(uidNew).child("UserInfo").setValue(newLimit).addOnSuccessListener {
+        val currentDate: String = setDate()
+        val newGoogleUser = UserGoogle("2500", currentDate)
+        FirebaseDatabase.getInstance().getReference("Users").child(uidNew).child("UserInfo").setValue(newGoogleUser).addOnSuccessListener {
                 Log.i("Lifecycle", "Successfully added limit to database")
             }.addOnFailureListener {
                 Log.i("Lifecycle", "Unsuccessfully added limit to database")
@@ -64,13 +68,49 @@ class FirebaseDatabaseRepository {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 firebaseReference.get().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        task.result?.child("title")?.ref?.removeValue()
-
-                        val newLimit = Limit(newLimit)
-                        FirebaseDatabase.getInstance().getReference("Users").child(uid).child("UserInfo").setValue(newLimit).addOnSuccessListener {
-                            Log.i("Lifecycle", "Successfully added limit to database")
+                        val createDate = getCreateDate(uid)
+                        val newLimitObject = UserGoogle(newLimit, createDate)
+                        FirebaseDatabase.getInstance().getReference("Users").child(uid).child("UserInfo").setValue(newLimitObject).addOnSuccessListener {
+                            Log.i("Lifecycle", "Successfully changed limit to database")
                         }.addOnFailureListener {
-                            Log.i("Lifecycle", "Unsuccessfully added limit to database")
+                            Log.i("Lifecycle", "Unsuccessfully changed limit to database")
+                        }
+                    }
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        })
+    }
+
+    private fun getCreateDate(uid: String): String {
+    FirebaseDatabase.getInstance().getReference("Users").child(uid).child("UserInfo")
+        .addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    registerDate = String()
+                    registerDate = snapshot.child("createDate").value.toString()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    return registerDate
+    }
+
+    fun editExpense(item: Item){
+        val firebaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Items")
+        val query: Query = firebaseReference
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                firebaseReference.get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val newItem = item
+                        FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Items").child(item.id.toString()).setValue(newItem).addOnSuccessListener {
+                            Log.i("Lifecycle", "Successfully changed item in database")
+                        }.addOnFailureListener {
+                            Log.i("Lifecycle", "Unsuccessfully changed item in database")
                         }
                     }
                 }
@@ -85,26 +125,16 @@ class FirebaseDatabaseRepository {
             .get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     fetchedLimit = task.result.child("limit").value.toString()
-                    Log.i("Lifecycle", task.result.child("limit").value.toString())
                 }
             }
         _costLimit.postValue(fetchedLimit)
     }
-/*
-    fun getItem(itemID: String): MutableLiveData<Item> {
-        item = Item("", "", "", "", "", "", "")
-        FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Items").child(itemID)
-            .get().addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val title = task.result.child("title").value.toString()
-                    val amount = task.result.child("amount").value.toString()
-                    val description = task.result.child("description").value.toString()
-                    val category = task.result.child("category").value.toString()
-                    val date = task.result.child("date").value.toString()
-                    val addedDate = task.result.child("addedDate").value.toString()
-                    item = Item("", title, amount, date, addedDate, category, description)
-                }
-            }
 
-    }*/
+    private fun setDate(): String {
+
+        //Current date
+        val currentDate = LocalDateTime.now()
+        val formatterDate = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        return currentDate.format(formatterDate)
+    }
 }

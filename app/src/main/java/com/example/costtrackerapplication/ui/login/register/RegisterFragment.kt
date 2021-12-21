@@ -1,15 +1,12 @@
 package com.example.costtrackerapplication.ui.login.register
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.costtrackerapplication.MainActivity
@@ -26,7 +23,8 @@ class RegisterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
         //Binding
         _binding = RegisterFragmentBinding.inflate(inflater, container, false)
 
@@ -35,10 +33,10 @@ class RegisterFragment : Fragment() {
             ViewModelProvider(this).get(RegisterViewModel::class.java)
 
         binding.btnToRegisterAccount.setOnClickListener {
-            val registerUsernameInput: String? = binding.registerUsernameInput.text.toString()
-            val registerEmailInput: String? = binding.registerEmailInput.text.toString()
-            val registerPasswordInput: String? = binding.registerPasswordInput.text.toString()
-            val registerRePasswordInput: String? = binding.registerRePasswordInput.text.toString()
+            val registerUsernameInput: String = binding.registerUsernameInput.text.toString()
+            val registerEmailInput: String = binding.registerEmailInput.text.toString()
+            val registerPasswordInput: String = binding.registerPasswordInput.text.toString()
+            val registerRePasswordInput: String = binding.registerRePasswordInput.text.toString()
             //val isAnyEmpty: Boolean = checkIsEmpty()
 
             //TODO Make every combination correct for validation
@@ -46,13 +44,14 @@ class RegisterFragment : Fragment() {
 /*                (checkIfAnyEmpty(registerUsernameInput, registerEmailInput, registerPasswordInput, registerRePasswordInput) == true) -> {
                     setErrors(registerUsernameInput, registerEmailInput, registerPasswordInput, registerRePasswordInput)
                 }*/
-                (TextUtils.isEmpty(registerUsernameInput?.trim{it <= ' '})
-                        || TextUtils.isEmpty(registerEmailInput?.trim{it <= ' '})
-                        || TextUtils.isEmpty(registerPasswordInput?.trim{it <= ' '})
-                        || TextUtils.isEmpty(registerRePasswordInput?.trim{it <= ' '})) -> {
+                (TextUtils.isEmpty(registerUsernameInput.trim{it <= ' '})
+                        || TextUtils.isEmpty(registerEmailInput.trim{it <= ' '})
+                        || TextUtils.isEmpty(registerPasswordInput.trim{it <= ' '})
+                        || TextUtils.isEmpty(registerRePasswordInput.trim{it <= ' '})) -> {
                         setErrors(registerUsernameInput, registerEmailInput, registerPasswordInput, registerRePasswordInput)
                 }
                 else -> {
+                    //TODO Use later
                     //if(TextUtils.isEmpty(registerPasswordInput?.trim{it <= ' '}) != TextUtils.isEmpty(registerRePasswordInput?.trim{it <= ' '})){
                     /*
                     if(checkIfEqual(registerPasswordInput, registerRePasswordInput)){
@@ -67,13 +66,11 @@ class RegisterFragment : Fragment() {
                             registerUsernameInput,
                             registerEmailInput,
                             registerPasswordInput
-                        ).observe(viewLifecycleOwner, Observer {
+                        ).observe(viewLifecycleOwner, {
                             if (it == true) {
                                 Snackbar.make(requireView(), "Successfully created account $registerUsernameInput", Snackbar.LENGTH_SHORT)
                                     .show()
                                 findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                            } else {
-                                binding.registerTitle.text = "EROROROOR"
                             }
                         })
                     //}

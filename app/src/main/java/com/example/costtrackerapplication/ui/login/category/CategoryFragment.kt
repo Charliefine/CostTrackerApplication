@@ -5,29 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.costtrackerapplication.databinding.CategoryFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import android.app.Activity
-
-import android.util.DisplayMetrics
-
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-
-import android.R
-import android.content.res.Resources
-import android.util.Log
-import android.widget.BaseAdapter
-
-import android.widget.FrameLayout
-import android.widget.RelativeLayout
 import androidx.core.os.bundleOf
-import com.example.costtrackerapplication.databinding.AddFragmentBinding
-import com.example.costtrackerapplication.ui.login.add.AddFragment
+import com.example.costtrackerapplication.model.CategoryAdapter
 
 
 class CategoryFragment : BottomSheetDialogFragment() {
@@ -39,7 +23,7 @@ class CategoryFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         //Binding
         _binding = CategoryFragmentBinding.inflate(inflater, container, false)
@@ -48,31 +32,35 @@ class CategoryFragment : BottomSheetDialogFragment() {
         categoryViewModel =
             ViewModelProvider(this).get(CategoryViewModel::class.java)
 
-        var itemsList: ArrayList<String>
 
-        categoryViewModel.text.observe(viewLifecycleOwner, Observer {
 
-            itemsList = it
-            var adapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(), com.example.costtrackerapplication.R.layout.list_item, itemsList)
-            binding.categoryList.adapter = adapter
+//        categoryViewModel.text.observe(viewLifecycleOwner, {
+        categoryViewModel.categories.observe(viewLifecycleOwner, {
+            var categoriesList = it.first
+            var iconsList = it.second
+            val listAdapter = CategoryAdapter(requireActivity(), categoriesList, iconsList)
+            binding.categoryList.adapter = listAdapter
 
+
+            //TODO Probably out, doesn't work 100% correct
             //Search Filter
             binding.searchViewCategoryList.setOnQueryTextListener(object :
                 SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                        adapter.filter.filter(query)
+                    listAdapter.filter.filter(query)
                     return false
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    adapter.filter.filter(newText)
+                    listAdapter.filter.filter(newText)
                     return false
                 }
             })
-        binding.categoryList.setOnItemClickListener { _, _, position, _ ->
-            val categoryName: String = adapter.getItem(position).toString()
 
-            requireActivity().supportFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to categoryName))
+        binding.categoryList.setOnItemClickListener { _, _, position, _ ->
+            val categoryName: String = listAdapter.getItem(position).toString()
+
+            requireActivity().supportFragmentManager.setFragmentResult("requestKeyCategory", bundleOf("bundleKey" to categoryName))
 
             this.dialog?.dismiss()
         }
@@ -85,16 +73,7 @@ class CategoryFragment : BottomSheetDialogFragment() {
         val dialog = super.onCreateDialog(savedInstanceState)
         dialog.setOnShowListener { dialogInterface ->
             val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            //setupFullHeight(bottomSheetDialog)
         }
         return dialog
     }
-    private fun setupFullHeight(bottomSheetDialog: BottomSheetDialog) {
-        val bottomSheet =
-            bottomSheetDialog.findViewById<View>(com.example.costtrackerapplication.R.id.add_category_bottom_sheet) as RelativeLayout
-        val behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from(bottomSheet)
-        behavior.peekHeight = Resources.getSystem().displayMetrics.heightPixels
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
 }

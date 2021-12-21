@@ -15,33 +15,11 @@ import kotlin.collections.ArrayList
 
 private lateinit var database : DatabaseReference
 private lateinit var itemArrayList : ArrayList<Item>
+private var filterList: ArrayList<String> = ArrayList()
+private var itemsCopy: ArrayList<Item> = ArrayList()
 private var sortDesc: Boolean = true
 
-private var itemsCopy: ArrayList<Item> = ArrayList()
-
 class ListViewModel : ViewModel() {
-
-    private val repository = FirebaseDatabaseRepository()
-/*
-
-    private val _newsFeedLiveData = MutableLiveData<ArrayList<Item>>().apply {
-        //value = repository.fetchItems().value!!
-        value = repository.fetchItems().value!!
-*/
-/*        postValue(repository.fetchItems().value?.let { ItemAdapter(it) })
-        Log.i("Lifecycle", repository.fetchItems().value?.toString()!!)*//*
-
-    }
-    val newsFeedLiveData: LiveData<ArrayList<Item>> = _newsFeedLiveData
-*/
-
-    private val _newsFeedLiveData = MutableLiveData<ArrayList<Item>>()
-    val newsFeedLiveData: LiveData<ArrayList<Item>> = _newsFeedLiveData
-
-    fun fetchItems() {
-        repository.fetchItems(_newsFeedLiveData)
-    }
-
 
     private val _itemArrayListAdapter = MutableLiveData<ItemAdapter>().apply{
         itemArrayList = arrayListOf()
@@ -55,27 +33,45 @@ class ListViewModel : ViewModel() {
                 itemArrayList.clear()
                 if(snapshot.exists()){
                     for(userSnapshot in snapshot.children){
-                        //TYLKO DATA
-                        //if(userSnapshot.child("date").value.toString()=="29 lis 2021"){
-                            // PRZEDZIAŁ DAT
-                        //if(userSnapshot.child("date").value.toString()<="29 lis 2021"&&userSnapshot.child("date").value.toString()>="28 lis 2021"){//##
-                        val item = userSnapshot.getValue(Item::class.java)
-                        itemArrayList.add(item!!)
+                        if(filterList.isEmpty()) {
+                            val item = userSnapshot.getValue(Item::class.java)
+                            itemArrayList.add(item!!)
 
-                        val format = SimpleDateFormat("dd.MM.yyyy")
+                            val format = SimpleDateFormat("dd.MM.yyyy")
 
                             //Sort
-                            if(sortDesc) {
+                            if (sortDesc) {
                                 itemArrayList.sortWith { o1, o2 ->
-                                    format.parse(o2.date)
-                                        ?.compareTo(format.parse(o1.date)!!)!!
+                                    format.parse(o2.date!!)
+                                        ?.compareTo(format.parse(o1.date!!))!!
                                 }
-                            }else{
+                            } else {
                                 itemArrayList.sortWith { o1, o2 ->
-                                    format.parse(o1.date)
-                                        ?.compareTo(format.parse(o2.date)!!)!!
+                                    format.parse(o1.date!!)
+                                        ?.compareTo(format.parse(o2.date!!))!!
                                 }
                             }
+                        }else{
+                            if(userSnapshot.child("category").value.toString() in filterList) {
+                                val item = userSnapshot.getValue(Item::class.java)
+                                itemArrayList.add(item!!)
+
+                                val format = SimpleDateFormat("dd.MM.yyyy")
+
+                                //Sort
+                                if (sortDesc) {
+                                    itemArrayList.sortWith { o1, o2 ->
+                                        format.parse(o2.date!!)
+                                            ?.compareTo(format.parse(o1.date!!))!!
+                                    }
+                                } else {
+                                    itemArrayList.sortWith { o1, o2 ->
+                                        format.parse(o1.date!!)
+                                            ?.compareTo(format.parse(o2.date!!))!!
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 postValue(ItemAdapter(itemArrayList))
@@ -87,7 +83,6 @@ class ListViewModel : ViewModel() {
         })
     }
     var itemArrayListAdapter: LiveData<ItemAdapter> = _itemArrayListAdapter
-
 
     fun onRefresh(swipeToRefresh: SwipeRefreshLayout) {
         swipeToRefresh.setOnRefreshListener {
@@ -105,14 +100,12 @@ class ListViewModel : ViewModel() {
         itemArrayList = ItemAdapter(itemsCopy).getFilteredResults(text)
     }
 
-    fun setSort(){
-        sortDesc = !sortDesc
+    fun setSort(s: String) {
+        sortDesc = s == "Latest"
     }
 
-    fun checkSort(): LiveData<Boolean> {
-        val result = MutableLiveData<Boolean>()
-        if (sortDesc) result.postValue(true)
-        else result.postValue(false)
-        return result
+    fun setFilters(mFilterList: ArrayList<String>) {
+        filterList = mFilterList
+        Log.i("Lifecycle", filterList.toString())
     }
 }

@@ -65,7 +65,7 @@ class RegisterViewModel : ViewModel()  {
     private fun setDate(): String {
         //Current date
         val currentDate = LocalDateTime.now()
-        val formatterDate = DateTimeFormatter.ofPattern("dd MMM yyyy")
+        val formatterDate = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         return currentDate.format(formatterDate)
     }
 }

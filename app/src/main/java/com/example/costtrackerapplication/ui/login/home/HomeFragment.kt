@@ -19,7 +19,6 @@ import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.HomeFragmentBinding
 import com.example.costtrackerapplication.ui.login.add.AddFragment
 import com.example.costtrackerapplication.ui.login.list.ListFragment
-import com.example.costtrackerapplication.ui.login.list.ListMainFragment
 import com.example.costtrackerapplication.ui.login.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -31,7 +30,8 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
         //Binding
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
 
@@ -46,19 +46,19 @@ class HomeFragment : Fragment() {
         fragmentTransaction?.add(R.id.home_frame_layout, HomeMainFragment(),"HomePage")?.commit()
         (activity as DrawerActivity?)!!.supportActionBar?.title = "Home"
 
-        binding.bottomNavigationView?.setOnNavigationItemSelectedListener {
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             val fragmentTransaction: FragmentTransaction? = fragmentManager?.beginTransaction()
             val transactionAnimation = fragmentTransaction?.setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim, R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
 
             when(it.itemId){
                 R.id.bottom_nav_home -> {
                         transactionAnimation?.replace(R.id.home_frame_layout, HomeMainFragment(), "HomePage")?.commit()
-                        (activity as DrawerActivity?)!!.supportActionBar?.title = "Home"
+                        (activity as DrawerActivity?)!!.supportActionBar?.title = "Dashboard"
                     true
                 }
                 R.id.bottom_nav_list -> {
                     transactionAnimation?.replace(R.id.home_frame_layout, ListFragment(), "ListPage")?.commit()
-                    (activity as DrawerActivity?)!!.supportActionBar?.title = "List"
+                    (activity as DrawerActivity?)!!.supportActionBar?.title = "List of all expenses"
                     true
                 }
                 R.id.bottom_nav_profile -> {
@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
                 else -> false
             }
         }
-        binding.bottomNavigationView?.setOnNavigationItemReselectedListener {
+        binding.bottomNavigationView.setOnNavigationItemReselectedListener {
             when(it.itemId){
                 R.id.bottom_nav_home -> {
                     true

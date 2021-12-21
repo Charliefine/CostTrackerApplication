@@ -1,27 +1,29 @@
 package com.example.costtrackerapplication
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.example.costtrackerapplication.databinding.ActivityDrawerBinding
-import com.example.costtrackerapplication.ui.login.add.AddFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+
 
 class DrawerActivity : AppCompatActivity() {
 
@@ -46,7 +48,7 @@ class DrawerActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_about
+                R.id.nav_home, R.id.nav_about, R.id.nav_settings
             ), drawerLayout
         )
 
@@ -116,6 +118,12 @@ class DrawerActivity : AppCompatActivity() {
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        val navController = findNavController(R.id.nav_host_fragment_content_drawer)
+        navController.navigate(R.id.nav_home)
     }
 
 }

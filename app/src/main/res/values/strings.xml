@@ -16,7 +16,6 @@
     <string name="username">Username</string>
     <string name="re_enter_password">Re-enter password</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
-    <string name="home">Home</string>
     <string name="about_application">About application</string>
     <string name="add_expense">Add expense</string>
     <string name="log_out">Log out</string>
@@ -30,4 +29,17 @@
     <string name="add">Add</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="list">List</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="view">View</string>
+    <string name="theme">Theme</string>
+    <string name="language">Language</string>
+    <string name="add_a_new_expense">Add a new expense</string>
+    <string name="save_changes">Save changes</string>
+    <string name="edit_expense">Edit expense</string>
+    <string name="filters">Filters</string>
+    <string name="search_for_expense">Search for expense</string>
+    <string name="clear">Clear</string>
 </resources>

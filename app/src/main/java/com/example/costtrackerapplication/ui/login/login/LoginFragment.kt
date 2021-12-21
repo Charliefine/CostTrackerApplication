@@ -34,25 +34,34 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        //Check if logged in
+        checkLogIn()
+
         //Binding
         _binding = LoginFragmentBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.btnToLogin.setOnClickListener {
-            val loginEmailInput: String? = binding.loginEmailInput.text.toString()
-            val loginPasswordInput: String? = binding.loginPasswordInput.text.toString()
+            val loginEmailInput: String = binding.loginEmailInput.text.toString()
+            val loginPasswordInput: String = binding.loginPasswordInput.text.toString()
             when{
-                TextUtils.isEmpty(loginEmailInput?.trim{it <= ' '}) && TextUtils.isEmpty(loginPasswordInput?.trim{it <= ' '}) -> {
+                TextUtils.isEmpty(loginEmailInput.trim{it <= ' '}) && TextUtils.isEmpty(loginPasswordInput.trim{it <= ' '}) -> {
                     binding.loginEmailLayout.error = "Email is empty"
                     binding.loginPasswordLayout.error = "Password is empty"
                 }
 
-                TextUtils.isEmpty(loginEmailInput?.trim{it <= ' '}) -> {
+                TextUtils.isEmpty(loginEmailInput.trim{it <= ' '}) -> {
                     binding.loginEmailLayout.error = "Email is empty"
                     binding.loginPasswordLayout.error = null
                 }
 
-                TextUtils.isEmpty(loginPasswordInput?.trim{it <= ' '}) -> {
+                TextUtils.isEmpty(loginPasswordInput.trim{it <= ' '}) -> {
                     binding.loginPasswordLayout.error = "Password is empty"
                     binding.loginEmailLayout.error = null
                 }
@@ -61,7 +70,7 @@ class LoginFragment : Fragment() {
                     binding.loginEmailLayout.error = null
                     binding.loginPasswordLayout.error = null
 
-                    loginViewModel.loginUserWithEmail(loginEmailInput, loginPasswordInput, context).observe(viewLifecycleOwner, Observer {
+                    loginViewModel.loginUserWithEmail(loginEmailInput, loginPasswordInput).observe(viewLifecycleOwner, Observer {
                         if(it == true){
                             val intent = Intent(activity, DrawerActivity::class.java)
                             intent.flags =
@@ -76,17 +85,7 @@ class LoginFragment : Fragment() {
             }
         }
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        //Viewmodel
-        loginViewModel =
-            ViewModelProvider(this).get(LoginViewModel::class.java)
-
-        binding.textToRegister.setOnClickListener {
+        binding.loginSignupLayout?.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
@@ -101,33 +100,9 @@ class LoginFragment : Fragment() {
 
     }
 
-    //Log in if logged already
-    override fun onStart() {
-        super.onStart()
-        checkLogIn()
-    }
-
-/*    var startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                val account = GoogleSignIn.getSignedInAccountFromIntent(result.data).getResult(ApiException::class.java)!!
-                loginViewModel.firebaseAuthWithGoogle(account.idToken!!)
-
-                val intent = Intent(activity, DrawerActivity::class.java)
-                intent.flags =
-                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                MainActivity().finish()
-                Log.i("Lifecycle", "Google sign is success")
-            } catch (e: ApiException) {
-                Log.i("Lifecycle", "Google sign in failed")
-            }
-        }
-    }*/
-
     var startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
+
                 // Google Sign In was successful, authenticate with Firebase
                 val account = GoogleSignIn.getSignedInAccountFromIntent(result.data).getResult(ApiException::class.java)!!
                 loginViewModel.firebaseAuthWithGoogle(account.idToken!!).observe(viewLifecycleOwner, Observer {
@@ -135,8 +110,8 @@ class LoginFragment : Fragment() {
                         val intent = Intent(activity, DrawerActivity::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
                         MainActivity().finish()
+                        startActivity(intent)
                         Log.i("Lifecycle", "Google sign is success")
                     }else{
                         Log.i("Lifecycle", "Google sign in failed")
@@ -151,8 +126,15 @@ class LoginFragment : Fragment() {
     }
 
     private fun checkLogIn(){
+
+        //ViewModel
+        loginViewModel =
+            ViewModelProvider(this).get(LoginViewModel::class.java)
+
         loginViewModel.isLogged().observe(viewLifecycleOwner, Observer {
             if(it == true){
+                requireActivity().setTheme(R.style.splashScreenTheme)
+
                 val intent = Intent(activity, DrawerActivity::class.java)
                 intent.flags =
                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

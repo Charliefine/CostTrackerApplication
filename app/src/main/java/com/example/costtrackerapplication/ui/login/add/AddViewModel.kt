@@ -1,6 +1,5 @@
 package com.example.costtrackerapplication.ui.login.add
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,12 +25,9 @@ class AddViewModel : ViewModel() {
 
         database = FirebaseDatabase.getInstance().getReference("Users")
         val uid: String = FirebaseAuth.getInstance().currentUser?.uid.toString()
-        Log.i("Lifecycle", addAmountInput!!)
-        val xd: Float? = addAmountInput?.toFloat().absoluteValue
-        Log.i("Lifecycle", xd.toString())
+        val xd: Float = addAmountInput?.toFloat()?.absoluteValue!!
         val addAmountInputFixed: String = xd.toString()
-        //addAmountInputFixed.replace(",", ".")
-        //Log.i("Lifecycle", addAmountInputFixed)
+
         //Dynamic id
         val key = database.child("Users").child(uid).child("Items").push().key
         val newItem = Item(key, addTitleInput, addAmountInputFixed, addDate, currentDate, addCategory, addDescriptionInput)

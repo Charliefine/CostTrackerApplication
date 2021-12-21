@@ -1,16 +1,13 @@
 package com.example.costtrackerapplication.ui.login.add
 
-import android.app.DatePickerDialog
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.AddFragmentBinding
@@ -32,19 +29,31 @@ class AddFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         //Binding
         _binding = AddFragmentBinding.inflate(inflater, container, false)
+
+        //Set menu item
+        setHasOptionsMenu(true)
 
         //Set default date and category
         setCurrentDate()
         setCategoryAndDate()
 
-        //Listener to category BottomSheet
-        requireActivity().supportFragmentManager.setFragmentResultListener("requestKey", this ) { _, bundle ->
+        //Listeners to category BottomSheet
+        requireActivity().supportFragmentManager.setFragmentResultListener("requestKeyCategory", this ) { _, bundle ->
             val resultReceived = bundle.getString("bundleKey")
             binding.addCategoryLayout.hint = resultReceived
         }
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Viewmodel
+        addViewModel = ViewModelProvider(this).get(AddViewModel::class.java)
 
         //Set date
         binding.addDateInput.setOnClickListener {
@@ -65,9 +74,18 @@ class AddFragment : Fragment() {
 
         //Validation
         binding.btnAddExpense.setOnClickListener {
-            val addTitleInput: String? = binding.addTitleInput.text.toString().trim{it <= ' '}
-            val addAmountInput: String? = binding.addAmountInput.text.toString().trim{it <= ' '}
-            val addDescriptionInput: String? = binding.addDescriptionInput.text.toString().trim{it <= ' '}
+            addNewExpense()
+        }
+
+        binding.addCategoryInput.setOnClickListener {
+            findNavController().navigate(R.id.action_addFragment_to_categoryFragment)
+        }
+    }
+
+    private fun addNewExpense() {
+            val addTitleInput: String = binding.addTitleInput.text.toString().trim{it <= ' '}
+            val addAmountInput: String = binding.addAmountInput.text.toString().trim{it <= ' '}
+            val addDescriptionInput: String = binding.addDescriptionInput.text.toString().trim{it <= ' '}
             val addCategory: String? = binding.addCategoryLayout.hint as String?
             val addDate: String? = binding.addDateLayout.hint as String?
             when{
@@ -91,7 +109,7 @@ class AddFragment : Fragment() {
                     binding.addAmountLayout.error = null
 
                     //Add method
-                    addViewModel.addExpense(addTitleInput, addAmountInput, addDescriptionInput, addCategory, addDate, currentDate.toString()).observe(viewLifecycleOwner, Observer {
+                    addViewModel.addExpense(addTitleInput, addAmountInput, addDescriptionInput, addCategory, addDate, formattedDate).observe(viewLifecycleOwner, Observer {
                         if(it == true){
                             Snackbar.make(requireView(), "Successfully added new expense", Snackbar.LENGTH_LONG).show()
                             binding.addTitleInput.text?.clear()
@@ -103,21 +121,19 @@ class AddFragment : Fragment() {
                     })
                 }
             }
-        }
-
-
-
-        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //Viewmodel
-        addViewModel = ViewModelProvider(this).get(AddViewModel::class.java)
-
-        binding.addCategoryInput.setOnClickListener {
-            findNavController().navigate(R.id.action_addFragment_to_categoryFragment)
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.menu_add_bar_save).setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_add_bar_save -> {
+                    addNewExpense()
+                    Log.i("Lifecycle", "Clicked menu")
+                }
+            }
+            true
         }
+        super.onPrepareOptionsMenu(menu)
     }
 
     private fun setCurrentDate() {

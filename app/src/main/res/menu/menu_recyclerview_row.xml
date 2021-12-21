@@ -2,14 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_rv_row_view"
-        android:title="View"
+        android:title="@string/view"
         android:icon="@drawable/ic_round_remove_red_eye_24"/>
     <item
-        android:id="@+id/menu_rv_row_edit"
-        android:title="Edit"
-        android:icon="@drawable/ic_round_edit_24"/>
-    <item
         android:id="@+id/menu_rv_row_delete"
-        android:title="Delete"
+        android:title="@string/delete"
         android:icon="@drawable/ic_outline_delete_24"/>
 </menu>

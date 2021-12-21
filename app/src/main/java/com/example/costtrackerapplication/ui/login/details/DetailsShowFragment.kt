@@ -1,16 +1,12 @@
 package com.example.costtrackerapplication.ui.login.details
 
-import android.R
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import com.example.costtrackerapplication.activities.DetailsActivity
 import com.example.costtrackerapplication.databinding.DetailsShowFragmentBinding
 
@@ -20,7 +16,6 @@ class DetailsShowFragment : Fragment() {
     private lateinit var detailsViewModel: DetailsViewModel
     private var _binding: DetailsShowFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var itemID: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +30,7 @@ class DetailsShowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val itemID: String
         val bundleFromActivity = this.arguments
         itemID = bundleFromActivity?.getString("itemID").toString()
 
@@ -43,15 +39,15 @@ class DetailsShowFragment : Fragment() {
 
         //Listener to Item from ViewModel
         detailsViewModel.itemDetails.observe(viewLifecycleOwner, Observer {
-            binding.test.text = it.title.toString()
+            binding.detailsShowTitle.text = it.title.toString()
+            binding.detailsShowCategory.text = it.category.toString()
+            binding.detailsShowDate.text = it.date.toString()
+            binding.detailsShowDateAdded.text = it.addedDate.toString()
+            binding.detailsShowDescription.text = it.description.toString()
+            binding.detailsShowAmount.text = it.amount.toString()
         })
 
         (activity as DetailsActivity).supportActionBar?.title = "Expense details"
-
-    }
-
-    fun onFragmentInteraction(mItemID: String?) {
-        itemID = mItemID!!
     }
 }
 

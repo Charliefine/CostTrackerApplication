@@ -6,14 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.list.ListMainFragment">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/list_search_view"
+    <LinearLayout
+        android:id="@+id/list_main_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layoutDirection="rtl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"/>
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/list_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layoutDirection="rtl"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="Search for expense" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/add_text_title"
@@ -37,7 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_search_view"
+        app:layout_constraintTop_toBottomOf="@+id/list_main_linear_layout"
         app:SpinKit_Color="@color/main_theme" />
     <!--
         <com.google.android.material.progressindicator.CircularProgressIndicator

@@ -30,5 +30,17 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_detailsEditFragment_to_categoryFragment2"
+            app:destination="@id/categoryFragment2" />
     </fragment>
+    <dialog
+        android:id="@+id/categoryFragment2"
+        android:name="com.example.costtrackerapplication.ui.login.category.CategoryFragment"
+        android:label="category_fragment"
+        tools:layout="@layout/category_fragment" >
+        <action
+            android:id="@+id/action_categoryFragment2_to_detailsEditFragment"
+            app:destination="@id/detailsEditFragment" />
+    </dialog>
 </navigation>

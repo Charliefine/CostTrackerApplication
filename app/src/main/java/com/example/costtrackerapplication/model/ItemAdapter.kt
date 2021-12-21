@@ -1,8 +1,8 @@
 package com.example.costtrackerapplication.model
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +13,9 @@ import com.example.costtrackerapplication.activities.DetailsActivity
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
-
-
-private lateinit var firebaseDatabase: FirebaseDatabase
-private lateinit var firebaseAuth: FirebaseAuth
 
 class ItemAdapter(private var itemList : ArrayList<Item>) : RecyclerView.Adapter<ItemAdapter.MyViewHolder>(),
     Filterable {
@@ -34,7 +28,7 @@ class ItemAdapter(private var itemList : ArrayList<Item>) : RecyclerView.Adapter
         val deleteBtn : Button = itemView.findViewById(R.id.btn_delete_row)
         val cardViewRow : MaterialCardView = itemView.findViewById(R.id.recyclerview_row_card)
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.recyclerview_row,
             parent,false)
@@ -42,7 +36,8 @@ class ItemAdapter(private var itemList : ArrayList<Item>) : RecyclerView.Adapter
         return MyViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: ItemAdapter.MyViewHolder, position: Int) {
+    @SuppressLint("RestrictedApi")
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem = itemList[holder.adapterPosition]
         val context = holder.itemView.context
@@ -57,7 +52,7 @@ class ItemAdapter(private var itemList : ArrayList<Item>) : RecyclerView.Adapter
         holder.deleteBtn.setOnClickListener {
             val popupMenu = PopupMenu(context, holder.deleteBtn)
             popupMenu.menuInflater.inflate(R.menu.menu_recyclerview_row, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener { item ->
+                        popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.menu_rv_row_view -> {
                         val intent = Intent(holder.itemView.context, DetailsActivity::class.java)
@@ -66,10 +61,7 @@ class ItemAdapter(private var itemList : ArrayList<Item>) : RecyclerView.Adapter
                         intent.putExtras(b)
                         holder.itemView.context.startActivity(intent)
                     }
-                    R.id.menu_rv_row_edit ->
-                        Log.i("Lifecycle", "You clicked EDIT - $itemName")
                     R.id.menu_rv_row_delete ->
-
                         MaterialAlertDialogBuilder(context,
                             R.style.ThemeOverlay_MaterialComponents_Dark)
                             .setTitle("Deleting expense")

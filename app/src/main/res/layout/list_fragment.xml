@@ -15,20 +15,26 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_bottom_sheet_filters"
-        android:layout_width="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Filters"
-        app:layout_constraintEnd_toStartOf="@+id/btn_swap_sort"
+        app:iconGravity="start"
+        android:textSize="12sp"
+        android:textAlignment="textStart"
+        android:text="@string/filters"
+        app:icon="@drawable/ic_round_filter_list_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
+<!--    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_swap_sort"
         android:text="Sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

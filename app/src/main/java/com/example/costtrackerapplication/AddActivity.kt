@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -33,11 +34,9 @@ class AddActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
         setSupportActionBar(binding.toolbarAdd)
-        //binding.addAppbar.background = ColorDrawable(Color.parseColor("#00000000"))
-/*        binding.addAppbar.setBackgroundColor(Color.TRANSPARENT)
-        binding.toolbarAdd.setBackgroundColor(Color.TRANSPARENT)*/
+
         settingStatusBarTransparent()
-//        actionBar?.elevation = 0F
+
         binding.toolbarAdd.setNavigationOnClickListener {
             onBackPressed()
         }
@@ -48,5 +47,11 @@ class AddActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
         window.statusBarColor = Color.TRANSPARENT
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_add_bar, menu)
+
+        return super.onCreateOptionsMenu(menu)
     }
 }

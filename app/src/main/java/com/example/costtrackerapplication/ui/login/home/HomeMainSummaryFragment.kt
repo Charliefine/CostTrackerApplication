@@ -21,20 +21,10 @@ class HomeMainSummaryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
         //Binding
         _binding = HomeMainSummaryFragmentBinding.inflate(inflater, container, false)
-
-        //Viewmodel
-        homeMainViewModel = ViewModelProvider(this).get(HomeMainViewModel::class.java)
-
-
-        //Summary amount
-        homeMainViewModel.summaryExpense.observe(viewLifecycleOwner, Observer {
-            binding.homeMainSummaryAmount.text = "$it PLN"
-            binding.homeMainSummarySpinKit.isVisible = false
-        })
-
 
         return binding.root
     }
@@ -42,13 +32,14 @@ class HomeMainSummaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-/*
+        //Viewmodel
+        homeMainViewModel = ViewModelProvider(this).get(HomeMainViewModel::class.java)
+
         //Summary amount
-        homeMainViewModel.summaryExpense.observe(viewLifecycleOwner, Observer {
+        homeMainViewModel.summaryExpense.observe(viewLifecycleOwner, {
             binding.homeMainSummaryAmount.text = "$it PLN"
             binding.homeMainSummarySpinKit.isVisible = false
         })
-*/
 
     }
 }

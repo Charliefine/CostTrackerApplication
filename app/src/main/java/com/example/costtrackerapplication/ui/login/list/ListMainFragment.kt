@@ -1,6 +1,7 @@
 package com.example.costtrackerapplication.ui.login.list
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,14 +29,21 @@ class ListMainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
         //Binding
         _binding = ListMainFragmentBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //ViewModel
         listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
 
-        listViewModel.itemArrayListAdapter.observe(viewLifecycleOwner, Observer {
+        listViewModel.itemArrayListAdapter.observe(viewLifecycleOwner, {
 
             //onSaveInstanceState - saving recyclerview state
             val recyclerViewState = itemRecyclerView.layoutManager?.onSaveInstanceState()
@@ -50,7 +58,7 @@ class ListMainFragment : Fragment() {
 
             if (it.itemCount == 0) {
                 binding.addTextTitle.isVisible = true
-                binding.addTextTitle.text = "History not found. Click ADD EXPENSE to add costs."
+                binding.addTextTitle.text = "History not found. Add new expense to see all of history."
             }
 
         })
@@ -69,24 +77,16 @@ class ListMainFragment : Fragment() {
             }
         })
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         //Recyclerview
-        itemRecyclerView = view?.findViewById(R.id.recyclerView)!!
+        itemRecyclerView = view.findViewById(R.id.recyclerView)!!
         itemRecyclerView.layoutManager = LinearLayoutManager(context)
         itemRecyclerView.setHasFixedSize(false)
 
         //Reset RecyclerView
         itemRecyclerView.recycledViewPool.clear()
 
-
         //Refresh
         listViewModel.onRefresh(binding.swipeToRefresh)
-
     }
 
 }
