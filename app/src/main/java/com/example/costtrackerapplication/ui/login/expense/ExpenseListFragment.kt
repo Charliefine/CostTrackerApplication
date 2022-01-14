@@ -38,7 +38,7 @@ class ExpenseListFragment : Fragment() {
         //ViewModel
         expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
 
-        //Set RecyclerView adadpter
+        //Set RecyclerView adapter
         expenseViewModel.itemArrayListAdapter.observe(viewLifecycleOwner, {
 
             //onSaveInstanceState - saving recyclerview state

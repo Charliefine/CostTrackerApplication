@@ -16,13 +16,13 @@
             android:name=".activities.ExpenseActivity"
             android:theme="@style/Theme.CostTrackerApplication.NoActionBar" />
         <activity
-            android:name=".AddActivity"
+            android:name=".activities.AddActivity"
             android:theme="@style/Theme.CostTrackerApplication.NoActionBar" />
         <activity
-            android:name=".DrawerActivity"
+            android:name=".activities.DrawerActivity"
             android:theme="@style/Theme.CostTrackerApplication.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/splashScreenTheme">
             <intent-filter>

@@ -6,36 +6,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.login.expense.ExpenseSummaryFragment"
-    android:layout_margin="20dp">
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="20dp">
 
     <TextView
+        android:id="@+id/expense_activity_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Summary"
+        android:textSize="18sp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expense_summary_amount_layout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:fontFamily="@font/poppins_regular"
+        app:startIconDrawable="@drawable/ic_round_attach_money_24"
+        android:layout_below="@id/expense_activity_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/expense_summary_amount_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:backgroundTint="@android:color/transparent"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/expense_activity_categories_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Categories"
+        android:textSize="18sp"
+        android:layout_below="@id/expense_summary_amount_layout"/>
+
+<!--    <TextView
         android:id="@+id/expense_summary_amount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/expense_activity_layout"/>-->
+<!--
 
     <TextView
         android:id="@+id/expense_summary_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/expense_summary_amount"/>
+-->
 
     <ListView
         android:id="@+id/expense_summary_listview"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_below="@id/expense_summary_categories"/>
-
+        android:layout_height="170dp"
+        android:layout_below="@id/expense_activity_categories_layout"/>
+<!--
     <com.google.android.material.button.MaterialButton
         android:id="@+id/expense_summary_clear_filters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/clear"
-        android:layout_below="@id/expense_summary_listview"/>
+        android:layout_below="@id/expense_summary_listview"/>-->
 
     <FrameLayout
         android:id="@+id/expense_summary_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/expense_summary_clear_filters"/>
+        android:layout_below="@id/expense_summary_listview"/>
 
 </RelativeLayout>

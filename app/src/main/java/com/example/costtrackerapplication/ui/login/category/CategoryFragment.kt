@@ -32,9 +32,6 @@ class CategoryFragment : BottomSheetDialogFragment() {
         categoryViewModel =
             ViewModelProvider(this).get(CategoryViewModel::class.java)
 
-
-
-//        categoryViewModel.text.observe(viewLifecycleOwner, {
         categoryViewModel.categories.observe(viewLifecycleOwner, {
             var categoriesList = it.first
             var iconsList = it.second

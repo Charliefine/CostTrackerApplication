@@ -56,6 +56,11 @@ class HomeMainViewModel : ViewModel() {
     }
     val welcomeName: LiveData<String> = _welcomeName
 
+    private val _profilePhoto = MutableLiveData<String>().apply {
+        value = getInstance().currentUser?.photoUrl.toString()
+    }
+    val profilePhoto: LiveData<String> = _profilePhoto
+
     private val _summaryExpense = MutableLiveData<String>().apply {
         val uid: String = getInstance().currentUser?.uid.toString()
             FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Items")

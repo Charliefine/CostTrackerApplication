@@ -1,5 +1,6 @@
 package com.example.costtrackerapplication.ui.login.login
 
+import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,14 +17,31 @@ class LoginViewModel: ViewModel(){
     fun loginUserWithEmail(loginEmailInput: String?, loginPasswordInput: String?): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseAuth.signInWithEmailAndPassword(loginEmailInput!!, loginPasswordInput!!)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    result.postValue(true)
-                } else {
-                    result.postValue(false)
-                }
+        when {
+            TextUtils.isEmpty(loginEmailInput?.trim { it <= ' ' }) && TextUtils.isEmpty(
+                loginPasswordInput?.trim { it <= ' ' }) -> {
+                result.postValue(false)
             }
+
+            TextUtils.isEmpty(loginEmailInput?.trim { it <= ' ' }) -> {
+                result.postValue(false)
+            }
+
+            TextUtils.isEmpty(loginPasswordInput?.trim { it <= ' ' }) -> {
+                result.postValue(false)
+            }
+
+            else -> {
+                firebaseAuth.signInWithEmailAndPassword(loginEmailInput!!, loginPasswordInput!!)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            result.postValue(true)
+                        } else {
+                            result.postValue(false)
+                        }
+                    }
+            }
+        }
         return result
     }
 

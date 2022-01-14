@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:orientation="horizontal"
     android:layout_margin="10dp"
-    android:elevation="2dp">
+    android:elevation="1dp">
 
-            <TextView
-                android:id="@+id/expense_summary_listview_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/category"
-                android:gravity="left"/>
+    <ImageView
+        android:id="@+id/expense_summary_listview_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"/>
 
-            <TextView
-                android:id="@+id/expense_summary_listview_amount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/amount"
-                android:gravity="left"
-                android:layout_below="@+id/expense_summary_listview_category"/>
+
+    <TextView
+        android:id="@+id/expense_summary_listview_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginTop="2dp"
+        android:textSize="15sp"
+        android:layout_marginLeft="55dp"
+        android:text="@string/category"/>
+
+    <TextView
+        android:id="@+id/expense_summary_listview_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="17sp"
+        android:layout_marginLeft="55dp"
+        android:text="@string/amount"
+        android:layout_below="@+id/expense_summary_listview_category"/>
 
 </RelativeLayout>

@@ -11,10 +11,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.costtrackerapplication.MainActivity
+import com.example.costtrackerapplication.activities.MainActivity
 import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.RecoveryPasswdFragmentBinding
-import com.google.android.material.snackbar.Snackbar
 
 class RecoveryPasswdFragment : Fragment() {
 

@@ -28,6 +28,7 @@ class ItemAdapter(private var itemList : ArrayList<Item>) : RecyclerView.Adapter
         val deleteBtn : Button = itemView.findViewById(R.id.btn_delete_row)
         val cardViewRow : MaterialCardView = itemView.findViewById(R.id.recyclerview_row_card)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.recyclerview_row,

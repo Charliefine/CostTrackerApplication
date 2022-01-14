@@ -62,7 +62,7 @@ class DetailsEditFragment : Fragment() {
         //ViewModel
         detailsViewModel = ViewModelProvider(this, MyDetailsViewModelFactory(itemID)).get(DetailsViewModel::class.java)
 
-        detailsViewModel.itemDetails.observe(viewLifecycleOwner, Observer {
+        detailsViewModel.itemDetails.observe(viewLifecycleOwner, {
             binding.detailsEditTitleInput.text = SpannableStringBuilder(it.title.toString())
             binding.detailsEditCategoryLayout.hint = it.category.toString()
             binding.detailsEditDateLayout.hint = it.date.toString()

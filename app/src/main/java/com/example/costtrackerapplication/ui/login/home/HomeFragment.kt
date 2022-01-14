@@ -1,26 +1,17 @@
 package com.example.costtrackerapplication.ui.login.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.transaction
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.costtrackerapplication.DrawerActivity
+import com.example.costtrackerapplication.activities.DrawerActivity
 import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.HomeFragmentBinding
-import com.example.costtrackerapplication.ui.login.add.AddFragment
 import com.example.costtrackerapplication.ui.login.list.ListFragment
 import com.example.costtrackerapplication.ui.login.profile.ProfileFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
 
@@ -31,7 +22,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         //Binding
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
 

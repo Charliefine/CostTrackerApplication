@@ -34,7 +34,6 @@ class ExpenseViewModel : ViewModel() {
 
     private val _summaryExpense = MutableLiveData<String>().apply {
         val uid: String = FirebaseAuth.getInstance().currentUser?.uid.toString()
-        val unionList: ArrayList<Map<String, Float>> = arrayListOf()
 
         FirebaseDatabase.getInstance().getReference("Users").child(uid).child("Items")
             .addValueEventListener(object: ValueEventListener {
@@ -45,13 +44,8 @@ class ExpenseViewModel : ViewModel() {
                             if(format.parse(userSnapshot.child("date").value.toString()) in format.parse(filterFirstDate)..format.parse(filterSecondDate)) {
                                 val amountFloat: String =
                                     userSnapshot.child("amount").getValue(String::class.java)!!
-                                val category: String =
-                                    userSnapshot.child("category").getValue(String::class.java)!!
                                 val amountPrec: Float = amountFloat.toFloat()
-                                var map =  mutableMapOf<String, Float>()
                                 sumExpense += amountPrec
-                                map[category] = amountPrec
-                                unionList.add(map)
                             }
                         }
                     }

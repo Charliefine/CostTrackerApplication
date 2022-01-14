@@ -1,24 +1,17 @@
 package com.example.costtrackerapplication.activities
 
 import android.graphics.Color
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
+import android.text.InputType
 import android.view.WindowManager
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import com.example.costtrackerapplication.DrawerActivity
 import com.example.costtrackerapplication.R
-import com.example.costtrackerapplication.databinding.ActivityAddBinding
 import com.example.costtrackerapplication.databinding.ActivityExpenseBinding
 import com.example.costtrackerapplication.ui.login.expense.ExpenseSummaryFragment
 import com.example.costtrackerapplication.ui.login.expense.ExpenseViewModel
-import com.example.costtrackerapplication.ui.login.home.HomeMainFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -48,6 +41,7 @@ class ExpenseActivity : AppCompatActivity() {
         //ViewModel
         expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
 
+        binding.expenseActivityDateInput.inputType = InputType.TYPE_NULL
 
         val fragmentManager: FragmentManager = this.supportFragmentManager
         var fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
@@ -59,7 +53,7 @@ class ExpenseActivity : AppCompatActivity() {
         setDefaultDate()
 
         //Set date
-        binding.expenseSummaryDate.setOnClickListener {
+        binding.expenseActivityDateInput.setOnClickListener {
             val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
             val datePicker =
@@ -75,12 +69,13 @@ class ExpenseActivity : AppCompatActivity() {
                 oldDateFormatted = outputDateFormat.format(it.first)
                 currentDateFormatted = outputDateFormat.format(it.second)
                 val dateText = "$oldDateFormatted - $currentDateFormatted"
-                binding.expenseSummaryDate.text = dateText
+//                binding.expenseSummaryDate.text = dateText
+                binding.expenseActivityDateLayout.hint = dateText
+
                 expenseViewModel.setDateRange(oldDateFormatted, currentDateFormatted)
 
                 fragmentTransaction = supportFragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.activity_expense_frame_layout, ExpenseSummaryFragment()).commit()
-
             }
         }
 
@@ -115,8 +110,8 @@ class ExpenseActivity : AppCompatActivity() {
         oldDateFormatted = oldDate.format(formatterDate)
 
         val dateText = "$oldDateFormatted - $currentDateFormatted"
-        binding.expenseSummaryDate.text = dateText
-
+//        binding.expenseSummaryDate.text = dateText
+        binding.expenseActivityDateLayout.hint = dateText
         expenseViewModel.setDateRange(oldDateFormatted, currentDateFormatted)
     }
 

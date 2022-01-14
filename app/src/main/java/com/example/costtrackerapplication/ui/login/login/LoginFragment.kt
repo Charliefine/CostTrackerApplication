@@ -3,7 +3,6 @@ package com.example.costtrackerapplication.ui.login.login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,8 +12,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.costtrackerapplication.DrawerActivity
-import com.example.costtrackerapplication.MainActivity
+import com.example.costtrackerapplication.activities.DrawerActivity
+import com.example.costtrackerapplication.activities.MainActivity
 import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.LoginFragmentBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -48,9 +47,9 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnToLogin.setOnClickListener {
-            val loginEmailInput: String = binding.loginEmailInput.text.toString()
-            val loginPasswordInput: String = binding.loginPasswordInput.text.toString()
-            when{
+            val loginEmailInput: String? = binding.loginEmailInput.text.toString()
+            val loginPasswordInput: String? = binding.loginPasswordInput.text.toString()
+            /*when{
                 TextUtils.isEmpty(loginEmailInput.trim{it <= ' '}) && TextUtils.isEmpty(loginPasswordInput.trim{it <= ' '}) -> {
                     binding.loginEmailLayout.error = "Email is empty"
                     binding.loginPasswordLayout.error = "Password is empty"
@@ -69,7 +68,7 @@ class LoginFragment : Fragment() {
                 else -> {
                     binding.loginEmailLayout.error = null
                     binding.loginPasswordLayout.error = null
-
+*/
                     loginViewModel.loginUserWithEmail(loginEmailInput, loginPasswordInput).observe(viewLifecycleOwner, Observer {
                         if(it == true){
                             val intent = Intent(activity, DrawerActivity::class.java)
@@ -78,11 +77,13 @@ class LoginFragment : Fragment() {
                             startActivity(intent)
                             MainActivity().finish()
                         }else{
-                            binding.loginPasswordLayout.error = "Email or password is incorrect"
+                            binding.loginEmailLayout.error = "Email might be incorrect"
+                            binding.loginPasswordLayout.error = "Password might be incorrect"
                         }
                     })
-                }
+/*                }
             }
+            */
         }
 
         binding.loginSignupLayout?.setOnClickListener {

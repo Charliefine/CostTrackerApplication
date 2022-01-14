@@ -1,26 +1,14 @@
-package com.example.costtrackerapplication
+package com.example.costtrackerapplication.activities
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.akexorcist.localizationactivity.ui.LocalizationActivity
+import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.ActivityMainBinding
-import com.example.costtrackerapplication.ui.login.login.LoginFragment
-import com.example.costtrackerapplication.ui.login.register.RegisterFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.FirebaseApp
 import java.util.*
 

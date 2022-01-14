@@ -1,6 +1,7 @@
 package com.example.costtrackerapplication.ui.login.details
 
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,13 +39,13 @@ class DetailsShowFragment : Fragment() {
         detailsViewModel = ViewModelProvider(this, MyDetailsViewModelFactory(itemID)).get(DetailsViewModel::class.java)
 
         //Listener to Item from ViewModel
-        detailsViewModel.itemDetails.observe(viewLifecycleOwner, Observer {
-            binding.detailsShowTitle.text = it.title.toString()
+        detailsViewModel.itemDetails.observe(viewLifecycleOwner, {
+            binding.detailsShowTitle.text = SpannableStringBuilder(it.title.toString())
             binding.detailsShowCategory.text = it.category.toString()
             binding.detailsShowDate.text = it.date.toString()
             binding.detailsShowDateAdded.text = it.addedDate.toString()
             binding.detailsShowDescription.text = it.description.toString()
-            binding.detailsShowAmount.text = it.amount.toString()
+            binding.detailsShowAmount.text = it.amount.toString() + " PLN"
         })
 
         (activity as DetailsActivity).supportActionBar?.title = "Expense details"

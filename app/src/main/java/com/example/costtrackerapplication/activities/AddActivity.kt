@@ -1,17 +1,15 @@
-package com.example.costtrackerapplication
+package com.example.costtrackerapplication.activities
 
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import com.example.costtrackerapplication.R
 import com.example.costtrackerapplication.databinding.ActivityAddBinding
 
 

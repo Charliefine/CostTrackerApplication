@@ -1,6 +1,7 @@
 package com.example.costtrackerapplication.ui.login.expense
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +41,8 @@ class ExpenseSummaryFragment : Fragment() {
         expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
 
         expenseViewModel.summaryExpense.observe(viewLifecycleOwner, {
-            binding.expenseSummaryAmount.text = it
+            binding.expenseSummaryAmountInput.inputType = InputType.TYPE_NULL
+            binding.expenseSummaryAmountLayout.hint = "$it PLN"
         })
 
         //Create list
@@ -49,6 +51,7 @@ class ExpenseSummaryFragment : Fragment() {
         val transactionAnimation = fragmentTransaction?.setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim, R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
         transactionAnimation?.replace(R.id.expense_summary_frame_layout, ExpenseListFragment())?.commit()
 
+        //TODO Zmienić adapter z VM do widoku
         expenseViewModel.categoriesExpense.observe(viewLifecycleOwner, { it ->
             categoriesKeys.clear()
             categoriesValues.clear()
@@ -58,10 +61,11 @@ class ExpenseSummaryFragment : Fragment() {
                 categoriesKeys.add(categoryName)
                 categoriesValues.add(it.value.toString())
             }
+
             val listAdapter = CategorySummaryAdapter(requireActivity(), categoriesKeys, categoriesValues)
             binding.expenseSummaryListview.adapter = listAdapter
 
-            binding.expenseSummaryListview.setOnItemClickListener { parent, view, position, id ->
+            binding.expenseSummaryListview.setOnItemClickListener { parent, _, position, _ ->
 
                 expenseViewModel.setCategory(parent.adapter.getItem(position).toString())
 
@@ -72,7 +76,7 @@ class ExpenseSummaryFragment : Fragment() {
             }
         })
 
-        binding.expenseSummaryClearFilters.setOnClickListener {
+        binding.expenseSummaryAmountInput.setOnClickListener {
             expenseViewModel.setCategory("")
 
             //Create list
@@ -80,5 +84,14 @@ class ExpenseSummaryFragment : Fragment() {
             val transactionAnimation = fragmentTransaction?.setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim, R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
             transactionAnimation?.replace(R.id.expense_summary_frame_layout, ExpenseListFragment())?.commit()
         }
+/*
+        binding.expenseSummaryClearFilters.setOnClickListener {
+            expenseViewModel.setCategory("")
+
+            //Create list
+            val fragmentTransaction: FragmentTransaction? = fragmentManager?.beginTransaction()
+            val transactionAnimation = fragmentTransaction?.setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim, R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
+            transactionAnimation?.replace(R.id.expense_summary_frame_layout, ExpenseListFragment())?.commit()
+        }*/
     }
 }
